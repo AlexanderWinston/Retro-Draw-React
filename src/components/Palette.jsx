@@ -2,7 +2,7 @@ import React from 'react';
 import Cell from './Cell';
 
 /* Need to map over the COLORS array, so we pull them from ../utils */
-import { COLORS } from '../utils';
+import { buildCellList, COLORS } from '../utils';
 
 /**
  * The Palette component represents the interface for displaying
@@ -10,9 +10,11 @@ import { COLORS } from '../utils';
  * to other components. 
  */
 const Palette = (props) => {
-  /**
-   * Create constants for activeColor and setActiveColor, reading the value off of the props
-   */
+ 
+  const activeColor = props.activeColor;
+  const setActiveColor = props.setActiveColor;
+  
+  
 
 
   /**
@@ -25,7 +27,24 @@ const Palette = (props) => {
    *    - has a prop of handleClick which is a function that calls setActiveColor, passing it 
    *      the color from the map
    */
-  return <div className="palette"></div>
+  return <div className='palette'>{
+    COLORS.map(function(color, index){
+       let isCurrentColorActiveColor;
+       if(color === activeColor){
+        isCurrentColorActiveColor = true;
+       } else {
+        isCurrentColorActiveColor = false;
+       }
+       
+
+      return <Cell color={color} 
+      key={index}
+      isActive={isCurrentColorActiveColor}/>
+
+    })
+  }
+
+  </div>
 }
 
 export default Palette;
